@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Komo.ly</title>
+</head>
+<body>
+    <main>
+        <h1>Komo.ly Video Player POC</h1>
+        <p>
+            Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+        </p>
+
+
+
+
+        <div class="kom-player" id="kom-player">
+            <div class="kom-player__main">
+                <div class="kom-player__main__header">
+                    <div class="kom-player__main__header__default">
+                        Támogasd a hírdetés megtekintésével az általad választott szervezetet!
+                    </div>
+                    <div class="kom-player__main__header__progress">&nbsp;</div>
+                    <div class="kom-player__main__header__selectorg">
+                        Válaszd ki a szervezetet!
+                    </div>
+                </div>
+                <div class="kom-player__main__video-container">
+                    <video class="kom-player__main__video" src="/assets/video.mp4"></video>
+                    <div class="kom-player__main__video__play">
+                        <button class="play-button"><div>Kattints ide!</div><div class="play-icon">▶</div></button>
+                        <button class="pause-button">❚❚</button>
+                        
+                    </div>
+                </div>
+            </div>
+            <div class="kom-player__actions">
+                <div class="kom-player__actions__logo">Komo.ly logo</div>
+                <a class="kom-player__actions__sponsor" href="#"><img src="/assets/unicef-logo.png" alt="UNICEF"></a>
+                <a class="kom-player__actions__sponsor" href="#"><img src="/assets/wwf-logo.jpg" alt="WWF"></a>
+                <a class="kom-player__actions__sponsor" href="#"><img src="/assets/charitable-foundation.jpg" alt="Charitable Foundation"></a>
+            </div>
+            <div class="kom-player__thankyou">
+                <div class="kom-player__thankyou__inner">
+                    <img src="" alt="">
+                    <h1>Köszönjük <br> a támogatást!</h1>
+                </div>
+            </div>
+            <style>
+                .kom-player {
+                    border: 5px solid gold;
+                    display: flex;
+                    background: gold;
+                    position: relative;
+                }
+                .kom-player * {
+                    font-family: sans-serif;
+                }
+                .kom-player__thankyou {
+                    position: absolute;
+                    top:0;
+                    bottom: 0;
+                    left:0;
+                    right:0;
+                    background: gold;
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    display: none;
+                }
+                @keyframes kom-player__thankyou-anim {
+                    0%{
+                        opacity: 0;
+                    }
+                    100%{
+                        opacity: 1;
+                    }
+                }
+                .kom-player__thankyou--active {
+                    display: flex;
+                    animation: kom-player__thankyou-anim 0.4s forwards;
+                }
+                .kom-player__thankyou__inner {
+                    display: flex;
+                    align-items: center;
+
+                }
+                .kom-player__thankyou__inner img {
+                    display: block;
+                    margin-right: 1rem;
+                }
+                .kom-player__main__header {
+                    padding: 1rem;
+                    /* font-weight: 600; */
+                    font-size: 24px;
+                }
+                .kom-player__main__header__progress {
+                    text-align: right;
+                }
+                .kom-player__main__video-container {
+                    position: relative;
+                }
+                .kom-player__main__video{
+                    width: 100%;
+                    display: block;
+                }
+                .kom-player__main__video__play {
+                    position: absolute;
+                    top:0;
+                    width:100%;
+                    height:100%;
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                }
+                .kom-player__main__video__play .play-button {
+                    cursor: pointer;
+                    background: white;
+                    border: none;
+                    padding: 1rem;
+                    padding-left: 2rem; 
+                    border-radius: 2rem;
+                    display: flex;
+                    align-items: center;
+                }
+                .kom-player__main__video__play .play-button .play-icon{
+                    font-size: 24px;
+                    margin-left: 1rem;
+                }
+
+                .kom-player__main__video__play .pause-button {
+                    position: absolute;
+                    right:10px;
+                    bottom: 10px;
+                    border: none;
+                    padding: 0.5rem 0.7rem;
+                }
+
+                .kom-player__actions {
+                    display: flex;
+                    flex-direction: column;
+                    justify-content: stretch;
+                }
+                .kom-player__actions a {
+                    opacity: 0.5;
+                    transition: opacity 0.3s;
+                }
+                .kom-player__actions--enabled a {
+                    opacity: 1;
+                }
+                .kom-player__actions img {
+                    display: block;
+                    max-width: 150px;
+                }
+
+                .kom-player__actions__logo {
+                    text-align: center;
+                    padding: 1rem;
+                }
+
+                .kom-player__actions__sponsor {
+                    display: block;
+                    flex: auto;
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                }
+
+                .sponsor--blue{
+                    background: rgb(138, 159, 229);
+                    color: blue;
+                }
+                .sponsor--green {
+                    background: rgb(146, 211, 146);
+                    color:green;
+                }
+                .sponsor--yellow {
+                    background: rgb(236, 236, 148);
+                    color:red;
+                }
+            </style>
+            <script>
+                (function(){
+                    var player = document.getElementById('kom-player')
+                    var playbutton = player.querySelector('.kom-player__main__video__play .play-button')
+                    var pausebutton = player.querySelector('.kom-player__main__video__play .pause-button')
+                    var video = player.querySelector('.kom-player__main__video')
+                    var headerDefault = player.querySelector('.kom-player__main__header__default')
+                    var headerProgress = player.querySelector('.kom-player__main__header__progress')
+                    var headerSelectOrg = player.querySelector('.kom-player__main__header__selectorg')
+                    var actionsBar = player.querySelector('.kom-player__actions')
+                    var thankyou = player.querySelector('.kom-player__thankyou')
+
+                    var canSponsor = false
+
+                    function hide(el){
+                        el.originalDisplay = el.style.display
+                        el.style.display = 'none'
+                    }
+                    function show(el){
+                        el.style.display = el.originalDisplay
+                    }
+
+                    function playVideo(){
+                        video.play()
+                        hide(playbutton)
+                        show(pausebutton)
+                        hide(headerDefault)
+                        show(headerProgress)
+                    }
+                    
+                    function pauseVideo(){
+                        video.pause()
+                        show(playbutton)
+                        hide(pausebutton)
+                        show(headerDefault)
+                        hide(headerProgress)
+                    }
+
+                    function updateProgress(){
+                        headerProgress.innerText = Math.round(video.duration - video.currentTime)
+                    }
+
+                    function videoEnded(){
+                        hide(pausebutton)
+                        hide(headerProgress)
+                        show(headerSelectOrg)
+                        actionsBar.classList.add('kom-player__actions--enabled')
+                        canSponsor = true
+                    }
+
+                    function sponsor(e){
+                        e.preventDefault()
+                        thankyou.classList.add('kom-player__thankyou--active')
+                        thankyou.querySelector('img').setAttribute(
+                            'src',
+                            e.currentTarget.querySelector('img').getAttribute('src')
+                        )
+                        console.log(e.currentTarget.querySelector('img').getAttribute('src'))
+                    }
+
+                    hide(pausebutton)
+                    hide(headerProgress)
+                    hide(headerSelectOrg)
+
+                    playbutton.addEventListener('click', playVideo)
+                    pausebutton.addEventListener('click', pauseVideo)
+                    video.addEventListener('timeupdate', updateProgress)
+                    video.addEventListener('ended', videoEnded)
+
+                    Array.prototype.slice.call(player.querySelectorAll('.kom-player__actions a')).forEach(el => {
+                        el.addEventListener('click', sponsor)
+                    })
+                })()
+            </script>
+        </div>
+
+
+
+
+
+    </main>
+    <style>
+        main {
+            max-width: 960px;
+            margin: 0 auto;
+            padding: 1rem;
+        }
+    </style>
+</body>
+</html>
